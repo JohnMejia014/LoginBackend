@@ -1,0 +1,43 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+login/
+venv/
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Logs and local data
+*.log
+*.sqlite3
+*.db
+
+# Pip
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# Test artifacts
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# MyPy / other tools
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Deployment configs
+*.pem
