@@ -41,4 +41,5 @@ htmlcov/
 
 # Deployment configs
 *.pem
-*.firebase-adminsdk-*.json
+*.firebase-adminsdk-*.jsonlogin-example-cf97f-firebase-adminsdk-fbsvc-61ea023a82.json
+login-example-cf97f-firebase-adminsdk-fbsvc-61ea023a82.json
