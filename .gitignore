@@ -41,3 +41,4 @@ htmlcov/
 
 # Deployment configs
 *.pem
+*.firebase-adminsdk-*.json
