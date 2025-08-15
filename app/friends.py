@@ -1,59 +1,25 @@
 from fastapi import APIRouter, Body
 from firebase.firebase import firebase_manager
 
-router = APIRouter(prefix="/friends", tags=["friends"])
+router = APIRouter()
 
 
-# --- Send Friend Request ---
-@router.post("/request")
-def send_friend_request(data: dict = Body(...)):
-    """
-    Send a friend request from one user to another
-    data = {"from_user": "uid1", "to_user": "uid2"}
-    """
-    success, error_message = firebase_manager.send_friend_request(data["from_user"], data["to_user"])
-    return {"success": success, "error_message": error_message}
+@router.post("/request_follow")
+def request_follow(data: dict = Body(...)):
+    success, error = firebase_manager.request_follow(data["follower_id"], data["target_user_id"])
+    return {'success': success, 'error': error}
 
+@router.post("/approve_follow")
+def approve_follow(data: dict = Body(...)):
+    success, error = firebase_manager.approve_follow_request(data["target_user_id"], data["follower_id"])
+    return {'success': success, 'error': error}
 
-# --- Accept Friend Request ---
-@router.post("/accept")
-def accept_friend_request(data: dict = Body(...)):
-    """
-    Accept a friend request
-    """
-    success, error_message = firebase_manager.accept_friend_request(data["from_user"], data["to_user"])
-    return {"success": success, "error_message": error_message}
+@router.post("/reject_follow")
+def reject_follow(data: dict = Body(...)):
+    success, error = firebase_manager.reject_follow_request(data["target_user_id"], data["follower_id"])
+    return {'success': success, 'error': error}
 
-
-# --- Decline Friend Request ---
-@router.post("/decline")
-def decline_friend_request(data: dict = Body(...)):
-    """
-    Decline a friend request
-    """
-    success, error_message = firebase_manager.decline_friend_request(data["from_user"], data["to_user"])
-    return {"success": success, "error_message": error_message}
-
-
-# --- Remove Friend ---
-@router.post("/remove")
-def remove_friend(data: dict = Body(...)):
-    """
-    Remove a friend connection
-    """
-    success, error_message = firebase_manager.remove_friend(data["user_id"], data["friend_id"])
-    return {"success": success, "error_message": error_message}
-
-
-# --- Get Friends List ---
-@router.get("/{user_id}/list")
-def get_friends_list(user_id: str):
-    friends, success, error_message = firebase_manager.get_friends_list(user_id)
-    return {"friends": friends, "success": success, "error_message": error_message}
-
-
-# --- Get Pending Requests ---
-@router.get("/{user_id}/pending")
-def get_pending_requests(user_id: str):
-    pending, success, error_message = firebase_manager.get_pending_requests(user_id)
-    return {"pending_requests": pending, "success": success, "error_message": error_message}
+@router.get("/get_follow_requests/{user_id}")
+def get_requests(user_id: str):
+    follow_requests, success, error = firebase_manager.get_pending_follow_requests(user_id)
+    return {'follow_requests': follow_requests, 'success': success, 'error': error}
